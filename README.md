@@ -1,4 +1,4 @@
-# libvgram
+# libwnn 
 
 A [weightless neural networks (WNN)](http://ieeexplore.ieee.org/document/593179/) library. 
 
@@ -16,11 +16,11 @@ The library was only tested in Ubuntu 12 and 14 so far.
 # Building the lib
 
 ```
-  mkdir build
-  cd build
-  cmake ..
-  make
-  sudo make install
+mkdir build
+cd build
+cmake ..
+make -j 4
+sudo make install
 ```
 
 # Testing your installation
@@ -28,7 +28,7 @@ The library was only tested in Ubuntu 12 and 14 so far.
 * Example vgram_xor
 
 ```
-  ./vgram_xor
+./vgram_xor
 ```
 
 * Example vgram_mnist
@@ -36,7 +36,7 @@ The library was only tested in Ubuntu 12 and 14 so far.
 Download the mnist dataset files from http://yann.lecun.com/exdb/mnist/ and then run the program using the mnist files as argument:
   
 ```
-  ./vgram_mnist train-images-idx3-ubyte train-labels-idx1-ubyte t10k-images-idx3-ubyte t10k-labels-idx1-ubyte
+./vgram_mnist train-images-idx3-ubyte train-labels-idx1-ubyte t10k-images-idx3-ubyte t10k-labels-idx1-ubyte
 ```
 
 It is expected an accuracy between 93% and 95%.

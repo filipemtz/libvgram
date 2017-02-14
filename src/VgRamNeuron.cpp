@@ -1,7 +1,8 @@
 
-#include "VgRamNeuron.h"
+#include <wnn/VgRamNeuron.h>
 #include <cstdlib>
 #include <cstdio>
+
 
 VgRamNeuron::VgRamNeuron(VgRamNeuronConfig config)
 {

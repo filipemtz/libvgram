@@ -1,10 +1,10 @@
 
-#ifndef VGRAMNEURON_H_
-#define VGRAMNEURON_H_
+#ifndef __VGRAM_NEURON_H__
+#define __VGRAM_NEURON_H__
 
 #include <vector>
 #include <cfloat>
-#include "BitPattern.h"
+#include <wnn/BitPattern.h>
 
 
 class VgRamNeuronOutput

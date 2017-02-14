@@ -5,8 +5,7 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
-#include "BitPattern.h"
-#include "VgRamNeuron.h"
+#include <wnn/VgRamNeuron.h>
 #include "read_mnist.h"
 
 

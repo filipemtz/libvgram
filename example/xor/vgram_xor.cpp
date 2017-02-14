@@ -1,7 +1,7 @@
 
-#include "BitPattern.h"
-#include "VgRamNeuron.h"
+#include <wnn/VgRamNeuron.h>
 #include <iostream>
+
 
 class XorOutput : public VgRamNeuronOutput
 {

@@ -1,5 +1,4 @@
 
-#include "BitPattern.h"
 #include <ostream>
 #include <cstdlib>
 #include <ostream>
@@ -7,6 +6,7 @@
 #include <cstring>
 #include <cstdio>
 #include <iostream>
+#include <wnn/BitPattern.h>
 
 
 long
