@@ -65,6 +65,7 @@ class VgRamNeuron
 		VgRamNeuronResult farthests(BitPattern *b);
 		std::vector<float> average_pattern_as_float();
 		BitPattern* average_pattern_as_bits();
+		long NumTrainedPatterns() { return _patterns.size(); }
 
 };
 
