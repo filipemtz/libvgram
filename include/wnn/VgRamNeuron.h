@@ -5,6 +5,7 @@
 #include <vector>
 #include <cfloat>
 #include <wnn/BitPattern.h>
+#include <cstdio>
 
 
 class VgRamNeuronOutput
@@ -12,6 +13,9 @@ class VgRamNeuronOutput
 	public:
 		VgRamNeuronOutput() {}
 		~VgRamNeuronOutput() {}
+		// return 0 if failed, and a number different of 0 if succeded.
+		virtual int save(FILE *) = 0;
+		virtual int load(FILE *) = 0;
 };
 
 
@@ -38,6 +42,20 @@ class VgRamNeuronConfig
 			c.replacement = ReplacementStrategyRandom;
 
 			return c;
+		}
+
+		int save(FILE *f)
+		{
+			fprintf(f, "%ld %d ", memory_size, (int) replacement);
+			return 1;
+		}
+
+		int load(FILE *f)
+		{
+			int repl;
+			fscanf(f, "%ld %d ", &memory_size, &repl);
+			replacement = (ReplacementStrategy) repl;
+			return 1;
 		}
 };
 
@@ -66,6 +84,33 @@ class VgRamNeuron
 		std::vector<float> average_pattern_as_float();
 		BitPattern* average_pattern_as_bits();
 		long NumTrainedPatterns() { return _patterns.size(); }
+		// return 0 if failed, and a number different of 0 if succeded.
+		int save(const char *filename);
+
+		template<class OutputType>
+		int load(const char *filename)
+		{
+			FILE *f = fopen(filename, "r");
+
+			if (f == NULL)
+				exit(printf("Error::VgRamNeuron::save::Unable to open file '%s'\n", filename));
+
+			_config.load(f);
+	
+			size_t n_patterns;
+			fscanf(f, "%ld ", &n_patterns);
+
+			for (size_t i = 0; i < n_patterns; i++)
+			{
+				_patterns.push_back(new BitPattern());
+				_outputs.push_back((VgRamNeuronOutput*) new OutputType());
+				_patterns[i]->load(f);
+				_outputs[i]->load(f);
+			}
+
+			fclose(f);
+			return 1;
+		}
 
 };
 

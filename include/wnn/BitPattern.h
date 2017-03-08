@@ -3,6 +3,7 @@
 #define __BIT_PATTERN_H__
 
 #include <ostream>
+#include <cstdio>
 
 #define NEURON_MEMORY_TYPE unsigned long
 #define BITS_PER_SLOT (8 * sizeof(NEURON_MEMORY_TYPE))
@@ -49,6 +50,9 @@ public:
 	void setOnes();
 	void setZeros();
 	long hamming(const BitPattern &b) const;
+	// return 0 if failed, and a number different of 0 if succeded.
+	int save(FILE *f);
+	int load(FILE *f);
 };
 
 
