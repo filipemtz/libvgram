@@ -9,8 +9,8 @@ public:
 	int bit;
 	XorOutput(int bbit = -1) { bit = bbit; }
 
-	virtual int save(FILE *f) { fprintf(f, "%d ", bit); }
-	virtual int load(FILE *f) { fscanf(f, "%d ", &bit); }
+	virtual int save(FILE *f) { return fprintf(f, "%d ", bit); }
+	virtual int load(FILE *f) { return fscanf(f, "%d ", &bit); }
 };
 
 
