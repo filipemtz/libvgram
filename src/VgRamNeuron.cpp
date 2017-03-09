@@ -190,13 +190,8 @@ VgRamNeuron::average_pattern_as_bits()
 
 
 int 
-VgRamNeuron::save(const char *filename)
+VgRamNeuron::save(FILE *f)
 {
-	FILE *f = fopen(filename, "w");
-
-	if (f == NULL)
-		exit(printf("Error::VgRamNeuron::save::Unable to open file '%s'\n", filename));
-
 	_config.save(f);
 	fprintf(f, "%ld\n", _patterns.size());
 
@@ -207,7 +202,6 @@ VgRamNeuron::save(const char *filename)
 		fprintf(f, "\n");
 	}
 
-	fclose(f);
 	return 1;
 }
 

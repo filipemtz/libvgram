@@ -86,16 +86,11 @@ class VgRamNeuron
 		BitPattern* average_pattern_as_bits();
 		long NumTrainedPatterns() { return _patterns.size(); }
 		// return 0 if failed, and a number different of 0 if succeded.
-		int save(const char *filename);
+		int save(FILE *f);
 
 		template<class OutputType>
-		int load(const char *filename)
+		int load(FILE *f)
 		{
-			FILE *f = fopen(filename, "r");
-
-			if (f == NULL)
-				exit(printf("Error::VgRamNeuron::save::Unable to open file '%s'\n", filename));
-
 			_config.load(f);
 	
 			size_t n_patterns;
@@ -109,7 +104,6 @@ class VgRamNeuron
 				_outputs[i]->load(f);
 			}
 
-			fclose(f);
 			return 1;
 		}
 

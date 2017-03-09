@@ -46,7 +46,9 @@ xor_test()
 	std::cout << "B3: " << (*b3) << " Output: " << ((XorOutput*) v.farthests(b3).values[0])->bit << " Dist: " << v.farthests(b3).distance << std::endl;
 	std::cout << "B4: " << (*b4) << " Output: " << ((XorOutput*) v.farthests(b4).values[0])->bit << " Dist: " << v.farthests(b4).distance << std::endl;
 
-	v.save("xor.txt");
+	FILE *f = fopen("xor.txt", "w");
+	v.save(f);
+	fclose(f);
 }
 
 
@@ -54,8 +56,14 @@ void
 xor_load_test()
 {
 	VgRamNeuron v;
-	v.load<XorOutput>("xor.txt");
-	v.save("xor2.txt");
+
+	FILE *f = fopen("xor.txt", "r");
+	v.load<XorOutput>(f);
+	fclose(f);
+
+	FILE *g = fopen("xor2.txt", "w");
+	v.save(g);
+	fclose(g);
 }
 
 
