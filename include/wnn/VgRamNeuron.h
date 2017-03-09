@@ -61,6 +61,7 @@ class VgRamNeuron
 		VgRamNeuron(VgRamNeuronConfig = VgRamNeuronConfig::CreateDefaultConfig());
 		void train(BitPattern *b, VgRamNeuronOutput *o);
 		void replace_output(int id, VgRamNeuronOutput *o);
+		void replace_training_sample(int id, BitPattern *b, VgRamNeuronOutput *o);
 		VgRamNeuronResult nearests(BitPattern *b);
 		VgRamNeuronResult farthests(BitPattern *b);
 		std::vector<float> average_pattern_as_float();

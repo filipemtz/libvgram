@@ -69,6 +69,21 @@ VgRamNeuron::replace_output(int id, VgRamNeuronOutput *o)
 }
 
 
+void
+VgRamNeuron::replace_training_sample(int id, BitPattern *b, VgRamNeuronOutput *o)
+{
+	if (id < 0 || id >= _patterns.size())
+		exit(printf("Error::replace_training_sample::Trying to replace invalid Id: %d (table size: %ld)\n",
+			id, _patterns.size()));
+
+	delete(_outputs[id]);
+	delete(_patterns[id]);
+
+	_patterns[id] = b;
+	_outputs[id] = o;
+}
+
+
 VgRamNeuronResult
 VgRamNeuron::nearests(BitPattern *b)
 {
