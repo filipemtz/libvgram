@@ -23,6 +23,16 @@ make -j 4
 sudo make install
 ```
 
+If cmake failed to found OpenCV, remove the generated files from the build directory, and run cmake with the option -DOpenCV_DIR=[path to directory build of your opencv installation]. Ex.:
+
+```
+cd build
+rm -rf *
+cmake -DOpenCV_DIR=/usr/local/opencv-2.4.9/build/ ..
+make -j 8
+sudo make install
+```
+
 # Testing your installation
 
 * Example vgram_xor
