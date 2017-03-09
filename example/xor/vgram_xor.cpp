@@ -7,7 +7,10 @@ class XorOutput : public VgRamNeuronOutput
 {
 public:
 	int bit;
-	XorOutput(int bbit) { bit = bbit; }
+	XorOutput(int bbit = -1) { bit = bbit; }
+
+	virtual int save(FILE *f) { return fprintf(f, "%d ", bit); }
+	virtual int load(FILE *f) { return fscanf(f, "%d ", &bit); }
 };
 
 
@@ -42,6 +45,17 @@ xor_test()
 	std::cout << "B2: " << (*b2) << " Output: " << ((XorOutput*) v.farthests(b2).values[0])->bit << " Dist: " << v.farthests(b2).distance << std::endl;
 	std::cout << "B3: " << (*b3) << " Output: " << ((XorOutput*) v.farthests(b3).values[0])->bit << " Dist: " << v.farthests(b3).distance << std::endl;
 	std::cout << "B4: " << (*b4) << " Output: " << ((XorOutput*) v.farthests(b4).values[0])->bit << " Dist: " << v.farthests(b4).distance << std::endl;
+
+	v.save("xor.txt");
+}
+
+
+void
+xor_load_test()
+{
+	VgRamNeuron v;
+	v.load<XorOutput>("xor.txt");
+	v.save("xor2.txt");
 }
 
 
@@ -49,4 +63,5 @@ int
 main()
 {
 	xor_test();
+	xor_load_test();
 }

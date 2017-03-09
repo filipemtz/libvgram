@@ -17,7 +17,9 @@ class MnistOutput : public VgRamNeuronOutput
 {
 	public:
 		int mnist_class;
-		MnistOutput(int mnist_class_p) { mnist_class = mnist_class_p; }
+		MnistOutput(int mnist_class_p = -1) { mnist_class = mnist_class_p; }
+		virtual int save(FILE *f) { return fprintf(f, "%d ", mnist_class); }
+		virtual int load(FILE *f) { return fscanf(f, "%d ", &mnist_class); } 
 };
 
 
