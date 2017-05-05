@@ -71,11 +71,13 @@ class VgRamNeuronResult
 
 class VgRamNeuron
 {
-	std::vector<BitPattern*> _patterns;
-	std::vector<VgRamNeuronOutput*> _outputs;
-	VgRamNeuronConfig _config;
-
 	public:
+		// TODO: control the access to these variables. Note: it is important give to the programmer the ability
+		// to write in _patterns and _outputs given the id of the pattern, but it must be done carefully.
+		std::vector<BitPattern*> _patterns;
+		std::vector<VgRamNeuronOutput*> _outputs;
+		VgRamNeuronConfig _config;
+
 		VgRamNeuron(VgRamNeuronConfig = VgRamNeuronConfig::CreateDefaultConfig());
 		void train(BitPattern *b, VgRamNeuronOutput *o);
 		void replace_output(int id, VgRamNeuronOutput *o);
@@ -94,7 +96,7 @@ class VgRamNeuron
 			_config.load(f);
 	
 			size_t n_patterns;
-			fscanf(f, "%ld ", &n_patterns);
+			fscanf(f, "%ld", &n_patterns);
 
 			for (size_t i = 0; i < n_patterns; i++)
 			{

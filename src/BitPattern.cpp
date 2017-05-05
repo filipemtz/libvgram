@@ -330,7 +330,7 @@ BitPattern::load(FILE *f)
 	_alloc(num_bits);
 
 	for (int i = 0; i < _num_slots; i++)
-		fscanf(f, "%ld ", &(_storage[i]));
+		fscanf(f, "%ld", &(_storage[i]));
 
 	return 1;
 }
