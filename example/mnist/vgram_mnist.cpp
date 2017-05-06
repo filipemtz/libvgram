@@ -103,10 +103,10 @@ summarize(VgRamNeuronResult &r)
 int
 main(int argc, char **argv)
 {
-	if (argc < 5)
-		exit(printf("Use %s <train-images-file> <train-labels-file> <test-images-file> <test-labels-file>\n", argv[0]));
+	if (argc < 6)
+		exit(printf("Use %s <train-images-file> <train-labels-file> <test-images-file> <test-labels-file> <USE_KNN=[1|0]>\n", argv[0]));
 
-	int i, n, random_sample;
+	int i, n, random_sample, use_knn;
 	vector<Mat> train_images, test_images;
 	vector<double> train_labels, test_labels;
 
@@ -114,6 +114,7 @@ main(int argc, char **argv)
 	MNIST_read_labels(argv[2], train_labels);
 	MNIST_read_images(argv[3], test_images);
 	MNIST_read_labels(argv[4], test_labels);
+	use_knn = atoi(argv[5]);
 
 	srand(time(NULL));
 
@@ -148,7 +149,12 @@ main(int argc, char **argv)
 		random_sample = rand() % test_images.size();
 
 		BitPattern *b = bit_pattern_from_image(test_images[random_sample]);
-		VgRamNeuronResult r = neuron->nearests(b);
+		VgRamNeuronResult r;
+		
+		if (use_knn)
+			r = neuron->knn(b, 10);
+		else
+			r = neuron->nearests(b);
 
 		int c = summarize(r);
 

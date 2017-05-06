@@ -35,16 +35,16 @@ xor_test()
 	v.train(b4, new XorOutput(0));
 
 	std::cout << "Nearests: " << std::endl;
-	std::cout << "B1: " << (*b1) << " Output: " << ((XorOutput*) v.nearests(b1).values[0])->bit << " Dist: " << v.nearests(b1).distance << std::endl;
-	std::cout << "B2: " << (*b2) << " Output: " << ((XorOutput*) v.nearests(b2).values[0])->bit << " Dist: " << v.nearests(b2).distance << std::endl;
-	std::cout << "B3: " << (*b3) << " Output: " << ((XorOutput*) v.nearests(b3).values[0])->bit << " Dist: " << v.nearests(b3).distance << std::endl;
-	std::cout << "B4: " << (*b4) << " Output: " << ((XorOutput*) v.nearests(b4).values[0])->bit << " Dist: " << v.nearests(b4).distance << std::endl;
+	std::cout << "B1: " << (*b1) << " Output: " << ((XorOutput*) v.nearests(b1).values[0])->bit << " Dist: " << v.nearests(b1).min_distance << std::endl;
+	std::cout << "B2: " << (*b2) << " Output: " << ((XorOutput*) v.nearests(b2).values[0])->bit << " Dist: " << v.nearests(b2).min_distance << std::endl;
+	std::cout << "B3: " << (*b3) << " Output: " << ((XorOutput*) v.nearests(b3).values[0])->bit << " Dist: " << v.nearests(b3).min_distance << std::endl;
+	std::cout << "B4: " << (*b4) << " Output: " << ((XorOutput*) v.nearests(b4).values[0])->bit << " Dist: " << v.nearests(b4).min_distance << std::endl;
 
 	std::cout << "Farthests: " << std::endl;
-	std::cout << "B1: " << (*b1) << " Output: " << ((XorOutput*) v.farthests(b1).values[0])->bit << " Dist: " << v.farthests(b1).distance << std::endl;
-	std::cout << "B2: " << (*b2) << " Output: " << ((XorOutput*) v.farthests(b2).values[0])->bit << " Dist: " << v.farthests(b2).distance << std::endl;
-	std::cout << "B3: " << (*b3) << " Output: " << ((XorOutput*) v.farthests(b3).values[0])->bit << " Dist: " << v.farthests(b3).distance << std::endl;
-	std::cout << "B4: " << (*b4) << " Output: " << ((XorOutput*) v.farthests(b4).values[0])->bit << " Dist: " << v.farthests(b4).distance << std::endl;
+	std::cout << "B1: " << (*b1) << " Output: " << ((XorOutput*) v.farthests(b1).values[0])->bit << " Dist: " << v.farthests(b1).min_distance << std::endl;
+	std::cout << "B2: " << (*b2) << " Output: " << ((XorOutput*) v.farthests(b2).values[0])->bit << " Dist: " << v.farthests(b2).min_distance << std::endl;
+	std::cout << "B3: " << (*b3) << " Output: " << ((XorOutput*) v.farthests(b3).values[0])->bit << " Dist: " << v.farthests(b3).min_distance << std::endl;
+	std::cout << "B4: " << (*b4) << " Output: " << ((XorOutput*) v.farthests(b4).values[0])->bit << " Dist: " << v.farthests(b4).min_distance << std::endl;
 
 	FILE *f = fopen("xor.txt", "w");
 	v.save(f);

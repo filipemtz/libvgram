@@ -39,7 +39,7 @@ VgRamNeuron::train(BitPattern *b, VgRamNeuronOutput *o)
 
 			// if the new pattern is further from the average than
 			// the most distant pattern, do not train.
-			if (d > r.distance || d == 0)
+			if (d > r.min_distance || d == 0)
 			{
 				delete(b);
 				delete(o);
@@ -90,26 +90,103 @@ VgRamNeuron::nearests(BitPattern *b)
 	long d;
 	VgRamNeuronResult r;
 
-	r.distance = DBL_MAX;
+	r.min_distance = DBL_MAX;
 
 	for (int i = 0; i < _patterns.size(); i++)
 	{
 		d = b->hamming(*_patterns[i]);
 
-		if (d < r.distance)
+		if (d < r.min_distance)
 		{
-			r.distance = d;
+			r.min_distance = d;
 
 			r.ids.clear();
 			r.values.clear();
+			r.dists.clear();
 
 			r.ids.push_back(i);
 			r.values.push_back(_outputs[i]);
+			r.dists.push_back(d);
 		}
-		else if (d == r.distance)
+		else if (d == r.min_distance)
 		{
 			r.ids.push_back(i);
 			r.values.push_back(_outputs[i]);
+			r.dists.push_back(d);
+		}
+	}
+
+	return r;
+}
+
+
+void
+shift_vector_to_open_space(std::vector<int> &ids, std::vector<double> &dists,
+	std::vector<VgRamNeuronOutput*> &values, int pos, int k)
+{
+	int start;
+
+	// if we have space, we keep the last element
+	// else we discard it
+	if (dists.size() < k)
+	{
+		values.push_back(values[values.size() - 1]);
+		dists.push_back(dists[dists.size() - 1]);
+		ids.push_back(ids[ids.size() - 1]);
+		start = ids.size() - 2;
+	}
+	else
+		start = ids.size() - 1;
+
+
+	for (int i = start; i > pos; i--)
+	{
+		values[i] = values[i - 1];
+		dists[i] = dists[i - 1];
+		ids[i] = ids[i - 1];
+	}
+}
+
+
+VgRamNeuronResult
+VgRamNeuron::knn(BitPattern *b, int k)
+{
+	int pos;
+	long d;
+	VgRamNeuronResult r;
+
+	r.min_distance = DBL_MAX;
+
+	for (int i = 0; i < _patterns.size(); i++)
+	{
+		d = b->hamming(*_patterns[i]);
+
+		if (d < r.min_distance)
+			r.min_distance = d;
+
+		for (pos = 0; pos < r.dists.size(); pos++)
+		{
+			if (r.dists[pos] > d)
+				break;
+		}
+
+		if (pos < k)
+		{
+			// we want to insert the sample in the end of the vector and we have space
+			if (pos == r.ids.size() && r.ids.size() < k)
+			{
+				r.ids.push_back(i);
+				r.dists.push_back(d);
+				r.values.push_back(_outputs[i]);
+			}
+			else
+			{
+				shift_vector_to_open_space(r.ids, r.dists, r.values, pos, k);
+
+				r.ids[pos] = i;
+				r.dists[pos] = d;
+				r.values[pos] = _outputs[i];
+			}
 		}
 	}
 
@@ -123,26 +200,29 @@ VgRamNeuron::farthests(BitPattern *b)
 	long d;
 	VgRamNeuronResult r;
 
-	r.distance = -DBL_MAX;
+	r.min_distance = -DBL_MAX;
 
 	for (int i = 0; i < _patterns.size(); i++)
 	{
 		d = b->hamming(*_patterns[i]);
 
-		if (d > r.distance)
+		if (d > r.min_distance)
 		{
-			r.distance = d;
+			r.min_distance = d;
 
 			r.ids.clear();
 			r.values.clear();
+			r.dists.clear();
 
 			r.ids.push_back(i);
 			r.values.push_back(_outputs[i]);
+			r.dists.push_back(d);
 		}
-		else if (d == r.distance)
+		else if (d == r.min_distance)
 		{
 			r.ids.push_back(i);
 			r.values.push_back(_outputs[i]);
+			r.dists.push_back(d);
 		}
 	}
 

@@ -12,7 +12,7 @@ class VgRamNeuronOutput
 {
 	public:
 		VgRamNeuronOutput() {}
-		~VgRamNeuronOutput() {}
+		virtual ~VgRamNeuronOutput() {}
 		// return 0 if failed, and a number different of 0 if succeded.
 		virtual int save(FILE *) = 0;
 		virtual int load(FILE *) = 0;
@@ -63,8 +63,9 @@ class VgRamNeuronConfig
 class VgRamNeuronResult
 {
 	public:
-		double distance;
+		double min_distance;
 		std::vector<int> ids;
+		std::vector<double> dists;
 		std::vector<VgRamNeuronOutput*> values;
 };
 
@@ -83,6 +84,7 @@ class VgRamNeuron
 		void replace_output(int id, VgRamNeuronOutput *o);
 		void replace_training_sample(int id, BitPattern *b, VgRamNeuronOutput *o);
 		VgRamNeuronResult nearests(BitPattern *b);
+		VgRamNeuronResult knn(BitPattern *b, int k);
 		VgRamNeuronResult farthests(BitPattern *b);
 		std::vector<float> average_pattern_as_float();
 		BitPattern* average_pattern_as_bits();
