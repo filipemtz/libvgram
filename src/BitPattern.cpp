@@ -180,6 +180,40 @@ BitPattern::operator|(const BitPattern &b) const
 }
 
 
+bool 
+BitPattern::operator==(const BitPattern &b)
+{
+	if (b.size() != size())
+	{
+		printf("Warning::BitPattern::operator!=::Bit patterns of different sizes!\n");
+		return false;
+	}
+
+	for (long i = 0; i < _num_slots; i++)
+		if (_storage[i] != b._storage[i])
+			return false;
+
+	return true;
+}
+
+
+bool 
+BitPattern::operator!=(const BitPattern &b)
+{
+	if (b.size() != size())
+	{
+		printf("Warning::BitPattern::operator!=::Bit patterns of different sizes!\n");
+		return true;
+	}
+
+	for (long i = 0; i < _num_slots; i++)
+		if (_storage[i] != b._storage[i])
+			return true;
+
+	return false;
+}
+
+
 std::ostream&
 operator<<(std::ostream& os, const BitPattern &b)
 {

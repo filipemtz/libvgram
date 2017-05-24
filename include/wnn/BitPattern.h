@@ -37,6 +37,8 @@ public:
 	BitPattern operator^(const BitPattern &b) const;
 	BitPattern operator&(const BitPattern &b) const;
 	BitPattern operator|(const BitPattern &b) const;
+	bool operator==(const BitPattern &b);
+	bool operator!=(const BitPattern &b);
 
 	friend std::ostream& operator<<(std::ostream& os, const BitPattern &b);
 
