@@ -1,4 +1,5 @@
 
+#include <cmath>
 #include <ostream>
 #include <cstdlib>
 #include <ostream>
@@ -107,6 +108,7 @@ BitPattern::BitPattern(const BitPattern &b)
 
 BitPattern::~BitPattern()
 {
+    printf("~BitPattern()\n");
 	free(_storage);
 }
 
@@ -217,6 +219,8 @@ BitPattern::operator!=(const BitPattern &b)
 std::ostream&
 operator<<(std::ostream& os, const BitPattern &b)
 {
+	int dim = sqrt(b._size);
+
 	//for (long i = 0; i < BITS_PER_SLOT * b._num_slotsb._size*/; i++)
 	for (long i = 0; i < b._size; i++)
 	{
@@ -229,6 +233,9 @@ operator<<(std::ostream& os, const BitPattern &b)
 			os << 1;
 		else
 			os << 0;
+
+		if (i % dim == 0 && i != 0)
+			os << "\n";
 	}
 
 	return os;

@@ -18,4 +18,4 @@ install(DIRECTORY include/wnn DESTINATION /usr/include)
 install(TARGETS wnn RUNTIME DESTINATION /usr/bin LIBRARY DESTINATION /usr/lib ARCHIVE DESTINATION /usr/lib)
 
 add_subdirectory(example)
-
+add_subdirectory(python)

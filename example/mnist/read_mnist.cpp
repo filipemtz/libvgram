@@ -4,7 +4,9 @@
 #include <math.h>
 #include <iostream>
 #include <fstream>
+#include "opencv2/imgproc/imgproc.hpp"
 
+using namespace cv;
 using namespace std;
 
 
@@ -29,7 +31,7 @@ MNIST_read_images(string filename, vector<cv::Mat> &vec)
 	ifstream file (filename.c_str(), ios::binary);
 
 	Mat eroded, dilated;
-	Mat morph_kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+	Mat morph_kernel = getStructuringElement(CV_SHAPE_RECT, Size(3, 3));
 
 	if (file.is_open())
 	{
