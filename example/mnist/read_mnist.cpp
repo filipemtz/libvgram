@@ -4,7 +4,6 @@
 #include <math.h>
 #include <iostream>
 #include <fstream>
-#include "opencv2/imgproc/imgproc.hpp"
 
 using namespace cv;
 using namespace std;
