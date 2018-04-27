@@ -108,7 +108,6 @@ BitPattern::BitPattern(const BitPattern &b)
 
 BitPattern::~BitPattern()
 {
-    printf("~BitPattern()\n");
 	free(_storage);
 }
 
