@@ -1,4 +1,4 @@
-# libwnn 
+# [Discountinued in 2016] libwnn 
 
 A [weightless neural networks (WNN)](http://ieeexplore.ieee.org/document/593179/) library. 
 
